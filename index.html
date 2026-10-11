@@ -1,1 +1,110 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Video Downloader</title>
+  <meta name="description" content="A simple Facebook video link helper for videos you are allowed to download.">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1c1e21;
+    }
+    header {
+      background: #1877f2;
+      color: white;
+      padding: 22px 14px;
+      text-align: center;
+    }
+    main {
+      max-width: 520px;
+      margin: 35px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #00000012;
+    }
+    h1 { font-size: 25px; margin: 0 0 8px; }
+    p { line-height: 1.6; color: #606770; }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input {
+      border: 1px solid #ccd0d5;
+      margin: 12px 0;
+    }
+    button {
+      border: 0;
+      background: #1877f2;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #message { overflow-wrap: anywhere; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #606770;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Facebook Video Downloader</h1>
+    <p style="color:white;margin-bottom:0">Simple • Free • Mobile Friendly</p>
+  </header>
+
+  <main>
+    <h2>Download a Video</h2>
+    <p>Paste a link to a video you own or have permission to download.</p>
+
+    <form id="downloadForm">
+      <input id="videoUrl" type="url"
+        placeholder="Paste Facebook video URL here"
+        aria-label="Facebook video URL" required>
+      <button type="submit">Check Video Link</button>
+    </form>
+
+    <p id="message" role="status"></p>
+    <p>Note: This starter page does not extract or download Facebook videos yet.</p>
+  </main>
+
+  <footer>Use only content you have permission to download.</footer>
+
+  <script>
+    const form = document.getElementById("downloadForm");
+    const input = document.getElementById("videoUrl");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      try {
+        const url = new URL(input.value.trim());
+        const host = url.hostname.toLowerCase();
+
+        if (
+          host === "facebook.com" ||
+          host.endsWith(".facebook.com") ||
+          host === "fb.watch"
+        ) {
+          message.textContent =
+            "Link received. Actual video downloading is not connected yet.";
+        } else {
+          message.textContent =
+            "Please enter a valid Facebook video link.";
+        }
+      } catch {
+        message.textContent = "Please enter a valid URL.";
+      }
+    });
+  </script>
+</body>
+</html>
